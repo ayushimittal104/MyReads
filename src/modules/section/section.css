@@ -1,0 +1,13 @@
+.section{
+    margin:10px;
+}
+.sectionTitle{
+    border-bottom: 1px solid #bdb3b3;
+    padding-bottom: 3px;
+}
+.bookList{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top:10px
+}

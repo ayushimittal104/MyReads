@@ -1,0 +1,13 @@
+.heading{
+    text-align: center;
+    background-color: green;
+    padding: 5px;
+}
+.addSvgDiv{
+    position: relative;
+}
+.addSvg{
+    position: fixed;
+    bottom: 20px;
+    right:20px;
+}
