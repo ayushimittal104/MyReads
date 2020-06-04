@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import './searchPage.css';
-import {get,update,search} from '../../BooksAPI';
+import {update,search} from '../../BooksAPI';
 import Section from "../section/section";
+import './searchPage.css';
+
 class Searchpage extends Component{
     constructor(props){
         super(props);
@@ -13,21 +14,29 @@ class Searchpage extends Component{
 
     changeShelf(book,toShelf){
     let shelf = toShelf === "Currently Reading" ? "currentlyReading" : toShelf === "Want to Read" ? "wantToRead" : toShelf === "Read" ? "read" :"None"
-        console.log(shelf)
-        update(book,shelf).then(response => 
-            {console.log(response)
-                get(book.id).then(r => console.log(r))
-            })    
+        update(book,shelf)
     }
 
     search(event){
         if (event.target.value.length > 0) {
             search(event.target.value).then(
             (response) => {
-                console.log(response)
-                response.length > 0 ? this.setState({showSearchResult:response,noResult:false}) : this.setState({noResult:true,showSearchResult:""})
-            }
-        );}
+                let bookList = [];
+                this.props.fetchData().then(books=> {
+                    bookList = response.map(book =>{
+                        books.filter(b =>{
+                                if(book.id === b.id){
+                                    book.shelf = b.shelf;
+                                }
+                                return book.shelf
+                        })
+                        book.shelf = book.shelf === "currentlyReading" ? "Currently Reading"  : book.shelf === "wantToRead" ? "Want to Read"  : book.shelf === "read" ? "Read" : "None"; 
+                        return book
+                    })
+                    bookList.length > 0 ? this.setState({showSearchResult:bookList,noResult:false}) : this.setState({noResult:true,showSearchResult:""})  
+                }) 
+            })
+        }
         else{
             this.setState({showSearchResult:"",noResult:false})
         }

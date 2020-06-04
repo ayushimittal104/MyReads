@@ -10,8 +10,6 @@ const headers = {
   'Accept': 'application/json',
   'Authorization': token
 }
-console.log({headers})
-console.log(`${api}/books`, { headers} )
 export const get = (bookId) =>
   fetch(`${api}/books/${bookId}`, { headers })
     .then(res => res.json())

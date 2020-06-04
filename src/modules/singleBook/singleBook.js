@@ -1,11 +1,11 @@
 import React,{ Component } from "react";
-import './singleBook.css';
 import {starsvg} from '../rating';
+import './singleBook.css';
 
 class SingleBook extends Component{
     constructor(props){
         super(props);
-        this.state = {selectedShelf:this.props.title}
+        this.state = {selectedShelf:this.props.book.shelf}
         this.clickOptions=["Currently Reading","Want to Read","Read","None"];
         this.changeShelf = this.changeShelf.bind(this);
     }
